@@ -1,0 +1,41 @@
+.Blog {
+    .articles-section {
+        position: relative;
+        button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            font-size: 3rem;
+        }
+        .articles {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            row-gap: 10rem;
+            .article {
+                width: 35rem;
+                height: 38rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                .pic {
+                    width: 100%;
+                    height: 20rem;
+                    background: rgb(66, 66, 112);
+                    border-radius: 1rem;
+                }
+                .title {
+                    font-size: 2.4rem;
+                }
+                .subtext {
+                    opacity: .6;
+                }
+                .author {
+                    text-align: end;
+                    font-size: 1.6rem;
+                }
+            }
+        }
+    }
+}

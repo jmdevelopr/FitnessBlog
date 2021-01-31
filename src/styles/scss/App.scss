@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.App {
+    background: #0b0625;
+    min-height: 100vh;
+    padding: 8rem 20rem;
+    font-size: 2rem;
+    * {
+        color: white;
+    }
+    h2 {
+        margin-bottom: 6rem;
+    }
+}

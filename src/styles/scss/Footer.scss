@@ -1,0 +1,14 @@
+.Footer {
+    margin-top: 18rem;
+    display: flex;
+    justify-content: space-between;
+    .social-media {
+        span {
+            opacity: .6;
+            margin-right: 6rem;
+        }
+    }
+    p {
+        opacity: .6;
+    }
+}

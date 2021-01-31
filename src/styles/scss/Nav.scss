@@ -1,0 +1,11 @@
+.Nav {
+    width: 50rem;
+    display: flex;
+    justify-content: space-between;
+    a {
+        text-decoration: none;
+        &:hover {
+            color: #7ba3ee;
+        }
+    }
+}
