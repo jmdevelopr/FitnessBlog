@@ -1,39 +1,53 @@
+import { Component } from 'react';
 import { connect } from 'react-redux';
-import addArticle from '../../../redux/actions/addArticle';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 import '../../../styles/css/Articles.min.css';
 
-const Articles = (props) => {
+class Articles extends Component {
 
-  const handleClick = () => props.addArticle({
-    title: 'A complete push-up tutorial for beginners.',
-    subtext: 'Learn how to do push-ups and not overdo yourself!',
-    author: 'Kuba Makuch'
-  });
+  handleAdd = () => { 
+    this.props.firestore.collection('articles').add({
+      title: 'A complete push-up tutorial for beginners.',
+      subtext: 'Learn how to do push-ups and not overdo yourself!',
+      author: 'Kuba Makuch'
+    }).then(() => console.log("Test article added."));
+  }
 
-  return (
-    <div className="articles-section">
-      <h2>Articles</h2>
-      <button onClick={handleClick}>+</button>
-      <div className="articles">
-        {props.articles.map((article, key) => 
-          <div className="article" key={key}>
-            <div className="pic"></div>
-            <h4 className="title">{article.title}</h4>
-            <p className="subtext">{article.subtext}</p>
-            <p className="author">By {article.author}</p>
-          </div>
-        )}
+  handleDelete = id => {
+    this.props.firestore.collection('articles').doc(id).delete()
+    .then(data => console.log("Document deleted."));
+  }
+
+  render() {
+    return (
+      <div className="articles-section">
+        <h2>Articles</h2>
+        <button 
+          onClick={this.handleAdd}
+        >+</button>
+        <div className="articles">
+          {this.props.articles && this.props.articles.map(article => 
+            <div className="article" key={article.id} onClick={() => this.handleDelete(article.id)}>
+              <div className="pic"></div>
+              <h4 className="title">{article.title}</h4>
+              <p className="subtext">{article.subtext}</p>
+              <p className="author">By {article.author}</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 const mapStateToProps = state => {
   return { 
-    articles: state.articlesReducer.articles
+    articles: state.firestoreReducer.ordered.articles
   }
 }
 
-const mapDistapchToProps = { addArticle }
-
-export default connect(mapStateToProps, mapDistapchToProps)(Articles);
+export default compose(
+  firestoreConnect(() => ['articles']),
+  connect(mapStateToProps)
+)(Articles)
